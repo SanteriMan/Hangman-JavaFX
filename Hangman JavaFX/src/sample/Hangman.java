@@ -83,7 +83,7 @@ public class Hangman extends Application {
         guessField.setOnAction((event) -> {
             wordLabel.setText("");
             msg.setText("");
-            char kirjain;
+            char letter;
 
             //Input can't be empty or a digit
             if(guessField.getText().isEmpty()){
@@ -92,10 +92,10 @@ public class Hangman extends Application {
 
                 for (int i = 0; i < wordLength; i++) {
                     if (guesses[i] == 1) {
-                        //Jos kirjain on arvattu oikein, tulostetaan se kirjain
+                        
                         wordLabel.setText(wordLabel.getText() + word.charAt(i) + "   ");
                     } else {
-                        //Muuten tulostetaan viiva
+                       
                         wordLabel.setText(wordLabel.getText() + "-   ");
                     }
                 }
@@ -105,23 +105,23 @@ public class Hangman extends Application {
 
                     for (int i = 0; i < wordLength; i++) {
                         if (guesses[i] == 1) {
-                            //Jos kirjain on arvattu oikein, tulostetaan se kirjain
+                            
                             wordLabel.setText(wordLabel.getText() + word.charAt(i) + "   ");
                         } else {
-                            //Muuten tulostetaan viiva
+                            
                             wordLabel.setText(wordLabel.getText() + "-   ");
                         }
                     }
                     //Go here, when the input is correct
                 } else {
-                    kirjain = guessField.getText().charAt(0);
+                    letter = guessField.getText().charAt(0);
 
                     //If the there are still letters to guess
                     if (correct < wordLength) {
                         //Store the old amount of correct letters
                         oldCorrect = correct;
                         //Check if the letters is already inputted
-                        if (wrongLetters.contains(kirjain) || correctLetters.contains(kirjain)) {
+                        if (wrongLetters.contains(letter) || correctLetters.contains(letter)) {
                             msg.setText("Kirjain jo syötetty");
 
                         } else {
@@ -130,7 +130,7 @@ public class Hangman extends Application {
                             for (int i = 0; i < wordLength; i++) {
                                 //If the guessed letter is found in the word. Change that place to 1 in the array, and
                                 //increase the amount of correct guesses
-                                if (kirjain == word.charAt(i)) {
+                                if (letter == word.charAt(i)) {
                                     guesses[i] = 1;
                                     correct++;
                                 }
@@ -139,13 +139,13 @@ public class Hangman extends Application {
                             //If the amount of correct guesses didn't increase in the previous loop, then
                             //the guess was incorrect
                             if (oldCorrect == correct) {
-                                wrongLettersLabel.setText(wrongLettersLabel.getText() + " " + kirjain + " ");
-                                wrongLetters.add(kirjain);
+                                wrongLettersLabel.setText(wrongLettersLabel.getText() + " " + letter + " ");
+                                wrongLetters.add(letter);
                                 lives--;
                                 msg.setText("Väärin arvattu. Elämiä jäljellä: " + lives);
                             } else {
                                 msg.setText("Oikein arvattu!");
-                                correctLetters.add(kirjain);
+                                correctLetters.add(letter);
                             }
                         }
 
